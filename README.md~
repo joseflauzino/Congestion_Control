@@ -2,6 +2,6 @@
 
 ## Exercício A
 
-<a href="https://raw.githubusercontent.com/joseflauzino/Congestion_Control/master/plot.png"></a>
+<img src="https://raw.githubusercontent.com/joseflauzino/Congestion_Control/master/plot.png"></img>
 
-<a href="https://raw.githubusercontent.com/joseflauzino/Congestion_Control/master/plot_zoom.png"></a>
+<img src="https://raw.githubusercontent.com/joseflauzino/Congestion_Control/master/plot_zoom.png"></img>
