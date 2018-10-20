@@ -1,11 +1,11 @@
 # Congestion Control
 
 ## Pré-requisitos
-1 - Ubuntu 14.04 ou 15.10*
+- Ubuntu 14.04 ou 15.10*
 
-2 - Git.
+- Git.
 
-3 - Emulador de rede celular.
+- Emulador de rede celular.
 
 > \* Outras versões ou distribuições podem ser usadas, mas não foram testadas.
 
@@ -26,4 +26,27 @@ Por fim instale `sudo make install`
 
 Escolha um diretório, entre em tal diretório e execute `git clone https://github.com/joseflauzino/Congestion_Control.git`
 
+## Executando Exercício A
+
+Entre no diretório exerciseA `cd datagrump/exerciseA/`
+
+Execute `./roda.sh`
+
+A saída resultante é:
+- arquivo "output.txt" contendo o throughput e delay (cada linha representa a saída da execução com um tamanho da janela de congestionamento).
+- figura "plot.png" (apresenta em forma de gráfico o resultado de todas as execuções)
+- figura "plot_zoom.png" (apresenta em forma de gráfico o resultado dos tamanhos de janela que obtiveram maior potência)
+
+## Executando Exercício B
+Entre no diretório exerciseB `cd datagrump/exerciseB`
+
+Execute `./run.sh`
+
+> Info
+## Executando Exercício C
+Entre no diretório exerciseC `cd datagrump/exerciseC`
+
+Execute `./run.sh`
+
+> Info
 
