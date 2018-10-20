@@ -1,13 +1,25 @@
 # Congestion Control
 
-## Exercício A
+## Pré-requisitos
+1 - Ubuntu 14.04 ou 15.10 (outras versões ou distribuições podem ser usadas, mas não foram testadas)
+2 - Git instalado.
+3 - Emulador de rede celular.
 
-<p>Ao variar o tamanho da janela é possível observar que o se altera também a potência (throughput/queuing delay) obtida, como mostra a Figura 1 logo a seguir.</p>
-<img src="https://raw.githubusercontent.com/joseflauzino/Congestion_Control/master/plot.png"></img>
-Figura 1
+### Instalando Git
+Execute `sudo apt-get install git`
 
-<p>Na Figura 1 fica evidente que determinados tamanhos para a janela faz com que a potência seja maior, no entanto fica fácil identificar exatamente qual pode ser o melhor valor. Para isso, a Figura 2 foi gerada a partir dos mesmos dados, no entanto com um enfoque nos tamanhos de janela com maior potência obtida.</p>
-<img src="https://raw.githubusercontent.com/joseflauzino/Congestion_Control/master/plot_zoom.png"></img>
-Figura 2
+### Instalando Emulador de Rede Celular
 
-<p>Assim podemos observar que o tamanho da janela com o maior aproveitamento é 13.</p>
+Execute `sudo apt-get install build-essential git debhelper autotools-dev dh-autoreconf iptables protobuf-compiler libprotobuf-dev pkg-config libssl-dev dnsmasq-base ssl-cert libxcb-present-dev libcairo2-dev libpango1.0-dev iproute2 apache2-dev apache2-bin iptables dnsmasq-base gnuplot iproute2 apache2-api-20120211 libwww-perl`
+
+Faça o clone com o comando `git clone https://github.com/ravinet/mahimahi`
+
+Entre no diretório mahimahi `cd mahimahi` e faça um compile tudo com `./autogen.sh && ./configure && make`
+
+Por fim instale `sudo make install`
+
+## Obtendo o código
+
+Escolha um diretório, entre em tal diretório e execute `git clone https://github.com/joseflauzino/Congestion_Control.git`
+
+
