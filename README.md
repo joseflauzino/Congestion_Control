@@ -7,7 +7,7 @@
 
 3 - Emulador de rede celular.
 
-> ** Outras versões ou distribuições podem ser usadas, mas não foram testadas.
+> \* Outras versões ou distribuições podem ser usadas, mas não foram testadas.
 
 ### Instalando Git
 Execute `sudo apt-get update && apt-get install git`
