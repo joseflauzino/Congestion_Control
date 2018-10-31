@@ -41,13 +41,18 @@ A saída resultante é:
 - figura "plot.png" (apresenta em forma de gráfico o resultado de todas as execuções)
 - figura "plot_zoom.png" (apresenta em forma de gráfico o resultado dos tamanhos de janela que obtiveram potências mais significativas)
 
+> Em resumo o script run.sh desse diretório faz o seguinte:
+> - exclui o arquivo 'controller.cc'
+> - faz uma cópia do 'controller_exeA.cc' com o nome 'controller.cc'
+> - compila tudo
+> - executa o experimento
+
 ## Executando Exercício B
 Entre no diretório exerciseB `cd datagrump/exerciseB/`
 
 Execute `./run.sh`
 
-> INFO
-> Em resumo o script run.sh faz o seguinte:
+> Em resumo o script run.sh desse diretório faz o seguinte:
 > - exclui o arquivo 'controller.cc'
 > - faz uma cópia do 'controller_exeB.cc' com o nome 'controller.cc'
 > - compila tudo
@@ -58,5 +63,9 @@ Entre no diretório exerciseC `cd datagrump/exerciseC/`
 
 Execute `./run.sh`
 
-> Info
+> Em resumo o script run.sh desse diretório faz o seguinte:
+> - exclui os arquivos 'controller.cc' e 'controoler.hh'
+> - faz uma cópia do 'controller_exeC.cc' 'controller_exeC.hh' com o nome 'controller.cc' e 'controller.hh'
+> - compila tudo
+> - executa o experimento
 
