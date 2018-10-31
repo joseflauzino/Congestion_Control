@@ -28,13 +28,13 @@ Por fim instale `sudo make install`
 Instale o matplotlib `sudo apt-get install python-matplotlib`
 ## Obtendo o código
 
-Escolha um diretório, entre em tal diretório e execute `git clone https://github.com/joseflauzino/Congestion_Control.git`
+Escolha um diretório, entre em tal diretório e execute `git clone https://github.com/joseflauzino/INFO7015-TP2.git`
 
 ## Executando Exercício A
 
 Entre no diretório exerciseA `cd datagrump/exerciseA/`
 
-Execute `./roda.sh`
+Execute `./run.sh`
 
 A saída resultante é:
 - arquivo "output.txt" contendo o throughput e delay (cada linha representa a saída da execução com um tamanho da janela de congestionamento).
@@ -42,13 +42,13 @@ A saída resultante é:
 - figura "plot_zoom.png" (apresenta em forma de gráfico o resultado dos tamanhos de janela que obtiveram potências mais significativas)
 
 ## Executando Exercício B
-Entre no diretório exerciseB `cd datagrump/exerciseB`
+Entre no diretório exerciseB `cd datagrump/exerciseB/`
 
 Execute `./run.sh`
 
 > Info
 ## Executando Exercício C
-Entre no diretório exerciseC `cd datagrump/exerciseC`
+Entre no diretório exerciseC `cd datagrump/exerciseC/`
 
 Execute `./run.sh`
 
