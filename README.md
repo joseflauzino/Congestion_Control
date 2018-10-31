@@ -46,7 +46,13 @@ Entre no diretório exerciseB `cd datagrump/exerciseB/`
 
 Execute `./run.sh`
 
-> Info
+> INFO
+> Em resumo o script run.sh faz o seguinte:
+> - exclui o arquivo 'controller.cc'
+> - faz uma cópia do 'controller_exeB.cc' com o nome 'controller.cc'
+> - compila tudo
+> - executa o experimento
+
 ## Executando Exercício C
 Entre no diretório exerciseC `cd datagrump/exerciseC/`
 
