@@ -20,7 +20,7 @@ def make_plot_zoom(data_zoom):
 	axes = fig.add_subplot(111)
 	axes.bar(x, data_zoom, width=0.8, edgecolor='White', alpha=0.6, color='#086A87')
 	for i in range(len(x)):
-		axes.text(x[i] + 0.0, data_zoom[i] + 0.2, "{:.2f}".format(data_zoom[i]), fontsize=7, color='#0B3861')
+		axes.text(x[i] + 0.0, data_zoom[i] + 0.2, truncate(data_zoom[i], 2), fontsize=7, color='#0B3861')
 	
 	axes.set_xlabel("Tamanho da Janela de Congestionamento")
 	plot.axis((0,35,0,14.0))
@@ -29,18 +29,23 @@ def make_plot_zoom(data_zoom):
 
 def make_plot_best(data_best):
 	x = [10, 11, 12, 13, 14, 15]
-	print "data_best: %s" % data_best
 	fig = plot.figure(figsize=(15,5))
 	
 	axes = fig.add_subplot(111)
 	axes.bar(x, data_best, width=0.8, edgecolor='White', alpha=0.6, color='#086A87')
 	for i in range(len(x)):
-		axes.text(x[i] + 0.25, data_best[i] - 0.1, "{:.2f}".format(data_best[i]), fontsize=16, color='w')
+		axes.text(x[i] + 0.25, data_best[i] - 0.1, truncate(data_best[i], 2), fontsize=16, color='w')
 	
 	axes.set_xlabel("Tamanho da Janela de Congestionamento")
 	plot.axis((9,16,12,13.0))
 	axes.set_ylabel("Potencia Mediana")
 	plot.savefig("plot_best.png")
+
+def truncate(f, n):
+    '''Truncates/pads a float f to n decimal places without rounding'''
+    s = '%.12f' % f
+    i, p, d = s.partition('.')
+    return '.'.join([i, (d+'0'*n)[:n]])
 
 def read_all_file():
 	data = []
@@ -85,7 +90,7 @@ def read_best_file():
 		f.close()
 	return data
 
-def print_best(data):
+def median_best(data):
 	aux = []
 	sorted_aux = []
 	final_data = []	
@@ -103,7 +108,7 @@ def main():
 	data = read_all_file()
 	data_zoom = read_zoom_file()
 	data_best = read_best_file()
-	data_best = print_best(data_best)
+	data_best = median_best(data_best)
 
 	make_plot_best(data_best)
 	make_plot(data)
