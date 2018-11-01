@@ -76,7 +76,7 @@ def read_zoom_file():
 
 def read_best_file():
 	data = []
-	for j in range(1,11):
+	for j in range(1,31):
 		file_best = 'best/best%s.txt' % j
 		batery = []
 		f = open(file_best, 'r')
@@ -95,7 +95,7 @@ def median_best(data):
 	sorted_aux = []
 	final_data = []	
 	wnd=0
-	for wnd in range(6):
+	for wnd in range(16):
 		for line in data:	
 			aux.append(line[wnd])
 		sorted_aux = sorted(aux)

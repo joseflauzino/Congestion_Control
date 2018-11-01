@@ -51,8 +51,7 @@ done
 # Running the best window size values
 #------------------
 best_array=('10' '11' '12' '13' '14' '15')
-#best_array=('10' '11')
-for x in {1..10}
+for x in {1..30}
 do
 	if [ "$x" -ne "1" ] ; then
 		cd exerciseA
