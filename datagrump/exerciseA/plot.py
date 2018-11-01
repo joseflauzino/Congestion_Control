@@ -4,8 +4,7 @@ import matplotlib.pyplot as plot
 from matplotlib import colors as mcolors
 
 def make_plot(data):
-	#x = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 30, 40, 50, 60, 70, 80, 90, 100, 120, 140, 160, 180, 200, 220, 240, 280, 300, 350]
-	x = [1]
+	x = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 30, 40, 50, 60, 70, 80, 90, 100, 120, 140, 160, 180, 200, 220, 240, 280, 300, 350]
 	fig = plot.figure(figsize=(15,5))
 	axes = fig.add_subplot(111)
 	axes.bar(x, data, width=1, edgecolor='White', alpha=0.8, color='#086A87')
@@ -15,8 +14,7 @@ def make_plot(data):
 	plot.savefig("plot.png")
 
 def make_plot_zoom(data_zoom):
-	#x = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 30, 40]
-	x = [1]	
+	x = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 30, 40]
 	fig = plot.figure(figsize=(15,5))
 	
 	axes = fig.add_subplot(111)
@@ -62,8 +60,7 @@ def read_zoom_file():
 	text = f.readlines()
 	i = 1
 	for line in text :
-		#if i <= 22:
-		if i <=1:
+		if i <= 22:
 			part = line.split(" ")
 			p = round((float(part[0]) / float(part[1]))*1000,4)
 			potency = float("{0:.4f}".format(p))
@@ -77,7 +74,6 @@ def read_best_file():
 	for j in range(1,11):
 		file_best = 'best/best%s.txt' % j
 		batery = []
-		#print "file: %s" % file_best
 		f = open(file_best, 'r')
 		text = f.readlines()
 		for line in text:
@@ -88,11 +84,6 @@ def read_best_file():
 		data.append(batery)
 		f.close()
 	return data
-
-def show(data):
-	for i in data:
-		print i
-	print ""
 
 def print_best(data):
 	aux = []
@@ -109,15 +100,14 @@ def print_best(data):
 	return final_data
 
 def main():
-	#data = read_all_file()
-	#data_zoom = read_zoom_file()
+	data = read_all_file()
+	data_zoom = read_zoom_file()
 	data_best = read_best_file()
-	show(data_best)
 	data_best = print_best(data_best)
-	print "bests: %s" % data_best
+
 	make_plot_best(data_best)
-	#make_plot(data)
-	#make_plot_zoom(data_zoom)
+	make_plot(data)
+	make_plot_zoom(data_zoom)
 
 if __name__ == "__main__":
 	main()
