@@ -26,7 +26,6 @@ Por fim instale `sudo make install`
 
 ### Instalando a biblioteca matplotlib
 Instale o matplotlib `sudo apt-get install python-matplotlib`
-
 ## Obtendo o código
 
 Escolha um diretório, entre em tal diretório e execute `git clone https://github.com/joseflauzino/INFO7015-TP2.git`

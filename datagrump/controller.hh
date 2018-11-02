@@ -24,8 +24,8 @@ public:
   unsigned int window_size();
 
   /* Congestion Control */
-  void congestion_control(uint64_t current_rtt, uint64_t timestamp_ack_received);
-
+  //void congestion_control(uint64_t current_rtt, uint64_t timestamp_ack_received);
+	void congestion_control(float RTT, int64_t travel_time);
   /* A datagram was sent */
   void datagram_was_sent( const uint64_t sequence_number,
 			  const uint64_t send_timestamp,

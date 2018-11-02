@@ -18,9 +18,9 @@ Controller::Controller( const bool debug )
 /******************
 Variables
 ******************/
-unsigned int the_window_size = 11;
-unsigned int increase = 1;
-float cut = 0.5;
+unsigned int the_window_size = 12; //x
+unsigned int increase = 4; // a
+float cut = 0.5; //b
 
 
 
@@ -47,9 +47,10 @@ void Controller::datagram_was_sent( const uint64_t sequence_number,
 				    const bool after_timeout
 				    /* datagram was sent because of a timeout */ )
 {
-	if(after_timeout == true){
-		unsigned int new_size = floor(the_window_size * cut);
-		if(new_size<11) new_size = 11;
+	/* Decreases the congestion window size if datagram was sent because of a timeout */
+	if(after_timeout){
+		unsigned int new_size = (unsigned int) floor(the_window_size * cut);
+		if(new_size<12) new_size = 12;
 		the_window_size = new_size;
 	}
 	if ( debug_ ) {
@@ -73,14 +74,19 @@ void Controller::ack_received( const uint64_t sequence_number_acked,
 			       const uint64_t timestamp_ack_received )
                                /* when the ack was received (by sender) */
 {
+	/* Get RTT*/
 	uint64_t rtt = timestamp_ack_received - send_timestamp_acked;
+	
+	/* Increases the size of the window if RTT is less than the timeout, 
+	otherwise the size of the congestion window decreases */
 	if(rtt > timeout_ms()){
-		unsigned int new_size = floor(the_window_size * cut);
-		if(new_size<11) new_size = 11;
+		unsigned int new_size = (unsigned int) floor(the_window_size * cut);
+		if(new_size<12) new_size = 12;
 		the_window_size = new_size;
 	}else{
-		the_window_size += 1;
+		the_window_size += increase;
 	}
+	
 
 	if ( debug_ ) {
 		cerr << "At time " << timestamp_ack_received
@@ -98,6 +104,6 @@ How long to wait (in milliseconds) if there are no acks
 before sending one more datagram
 ******************/
 unsigned int Controller::timeout_ms(){
-	return 100;
+	return 50;
 }
 

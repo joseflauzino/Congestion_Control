@@ -1,0 +1,75 @@
+# Trabalho Prático 2
+Trabalho desenvolvido na disciplina de Gerência de Redes do PPGInf da UFPR. 
+
+## Exercício A
+<p align="justify">No controlador implementado inicialmente, a janela de congestionamento é definida de forma fixa. Desse modo, no intuito de compreender o comportamento obtido se o tamanho da janela for alterado foi realizado várias simulações, cada uma com um tamanho de janela diferente. O resultado obtido pode ser observado na figura a seguir.</p>
+
+<a href="https://raw.githubusercontent.com/joseflauzino/INFO7015-TP2/master/datagrump/exerciseA/plot.png"><img src="https://raw.githubusercontent.com/joseflauzino/INFO7015-TP2/master/datagrump/exerciseA/plot.png" alt="Figura 1">Figura 1</img></a>
+
+<p align="justify">A Figura 1 apresenta a potência (taxa de transferência/atraso) alcançada com cada tamanho específico da janela de congestionamento. Os tamanhos testados foram: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 30, 40, 50, 60, 70, 80, 90, 100, 120, 140, 160, 180, 200, 220, 240, 280, 300 e 350.</p>
+
+<p align="justify">Observando o gráfico da Figura 1 é possível visualizar o comportamento geral, porém fica difícil idêntificar quais foram os valores exatos, ou ainda qual tamanho de janela resultou em maior potência. Para proporcionar melhor visualização, a Figura 2 foi gerada a partir dos mesmos dados da Figura 1, porém apresentando apenas os valores iniciais (justamente onde se encontram os resultados mais expressivos).</p>
+
+<p align="justify"><a href="https://raw.githubusercontent.com/joseflauzino/INFO7015-TP2/master/datagrump/exerciseA/plot_zoom.png"><img src="https://raw.githubusercontent.com/joseflauzino/INFO7015-TP2/master/datagrump/exerciseA/plot_zoom.png" alt="Figura 2">Figura 2</img></a></p>
+
+<p align="justify">Na Figura 2 fica evidente que a maior potência foi obtida com o tamanho da janela de congestionamento igual a 12, onde o valor alcançado foi 12.95. No entanto, esses resultados podem variar de um execução para outra.</p>
+
+<p align="justify">Para buscar um resultado mais concreto, foi realizada uma bateria de 30 execuções com cada um dos tamanhos de janela de congestionamento que apresentaram melhores resultados. Os tamanhos de janela esconhidos foram 10, 11, 12, 13, 14 e 15, já que esses apresentaram resultados acima de 12.5.</p>
+
+A Figura 3 demonstra o resultado dessas execuções.
+
+<p align="justify"><a href="https://raw.githubusercontent.com/joseflauzino/INFO7015-TP2/master/datagrump/exerciseA/plot_best.png"><img src="https://raw.githubusercontent.com/joseflauzino/INFO7015-TP2/master/datagrump/exerciseA/plot_best.png" alt="Figura 3">Figura 3</img></a></p>
+
+<p align="justify">Desse modo é possível concluir que o melhor tamanho para a janela de congestionamento fixa é 12. Com esse tamanho de janela a potência variou de 12.80 à 12.95 e teve a potência mediana de 12.89.</p>
+
+## Exercício B
+
+<p align="justify">O AIMD (Additive Increace - Multiplicative Decrease) é um algoritmo de controle de congestionamento, mais conhecido por seu uso pelo protocolo TCP. Como o nome sugere, esse algoritmo se baseia em aumento aditivo (linear) e redução multiplicativa (exponencial).</p>
+
+<p align="justify">Neste exercício o AIMD foi implementado de forma simples no mesmo controlador utilizado no Exercício A, que até então usava tamanho fixo na janela de congestionamento. A princípio a janela de congestionamento <code>w</code> se inicia com um valor <code>x</code>. À medida que os datagramas são enviados pelo emissor e este vai recebendo as confirmações de entrega (ACKs), <code>w</code>  é incrementado linearmente em um valor <code>a</code>. Caso seja detectado um esgotamento de tempo (timeout) ou um datagrama que precisou ser reenviado, <code>w</code> é decrementado de forma multiplicativa por <code>b</code>. O processo pode ser descrito da seguinte maneira.</p> 
+
+<p align="justify"><img src="https://raw.githubusercontent.com/joseflauzino/INFO7015-TP2/master/datagrump/exerciseB/aimd.png" width="370px"></img></p>
+
+A Tabela 1 apresenta os parâmetros utilizados no algoritmo AIMD implementado:
+
+Parâmetro | Valor    | Descrição           |
+:--------:|:--------:|---------------------|
+x         | 12       | valor inicial de w  |
+a         | 4        | valor do incremento |
+b         | 0.5      | valor do decremento |
+
+Tabela 1
+
+<p align="justify">Como descrito na Tabela 1, o valor inicial da janela de congestionamento é 12, já que esse foi o melhor tamanho obtido nos experimentos de janela fixa. A cada ACK recebido o valor da janela é atualizado, somando-se o valor atual mais 4. Quando o congestionamento é identificado a janela é diminuida ao meio.</p>
+
+<p align="justify">Com esse método a potência teve um aumento considerável em relação aos testes com tamanho fixo da janela de congestionamento. A maior potência obtida com o AIMD simples foi 20.12.</p>
+
+## Exercício D
+<p align="justify">Almejando alcançar um melhor desempenho, neste exercício foi desenvolvido um algoritmo para tratar melhor o congestionamento da rede. Seu funcionamento é descrito a seguir.</p>
+
+<p align="justify">Sempre que um ACK é recebido duas importantes variáveis são atualizadas, uma armazena o menor tempo de ida de um datagrama já ocorrido (travel_time_min) e a outra guarda o menor tempo de ida e volta já ocorrido (RTT_min). Para atualizar essas variáveis, quando um novo ACK é recebido faz-se o cálculo do tempo de ida do datagrama (travel_time) e o tempo de ida e volta (RTT). Em seguida é verificado se o travel_time e RTT desse datagrama foram os menores até então. Caso um dos dois (ou ambos) seja realmente o menor até o momento, é feita a atribuição deste valor em suas respectivas variáveis.</p>
+
+<p align="justify">Com essas informações atualizadas é realizada uma estimativa de qual será o próximo tempo de ida mínimo (est_travel_time_min), sendo este a metade do RTT_min atual. Tendo essa estimativa é possível calcular uma estimativa de qual será o próximo tempo de ida (est_travel_time).</p>
+
+<p align="justify">Essa última estimativa serve para tomar a decisão entre aumentar ou diminuir o tamanho da janela de congestionamento. Caso a est_travel_time seja maior que 1.4x est_travel_time_min a janela é decrementada, caso contrário, incrementada.</p>
+
+<p align="justify">Por fim, é feito um controle da janela de congestionamento, para que a mesma não assuma um valor nulo ou negativo, mas também não ultrapasse o tamanho 70.</p>
+
+A Tabela 1 apresenta os valores utilizados nos principais parâmetros.
+
+Parâmetro            | Valor                                      | Descrição                            |
+---------------------|--------------------------------------------|--------------------------------------|
+the_window_size      | 1-70                                       | Tamanho da janela de congestionamento|
+est_travel_time_min  | RTT_min * 0.5                              | Estimativa do tempo de ida mínimo    |
+timeout              | 60ms                                       | Tempo limite para aguardar um ACK    |
+
+<p align="justify">É importante ressaltar que o timout foi diminuido de 1 segundo para 60 milisegundos, isso proporcionou um ganho considerável já que o RTT é diminuido quando o atraso da fila ultrapassa o limite pré estipulado. A Figura 4 demonstra a relação entre o timeout e a potência final obtida.</p>
+
+<p align="justify"><a href="https://raw.githubusercontent.com/joseflauzino/INFO7015-TP2/master/datagrump/exerciseC/plot_timeout.png"><img src="https://raw.githubusercontent.com/joseflauzino/INFO7015-TP2/master/datagrump/exerciseC/plot_timeout.png" alt="Figura 4">Figura 4</img></a></p>
+
+<p align="justify">Como é possível observer na Figura 4, com o timeout igual a 60 a potência é maior do que com outros valores.</p>
+
+<p align="justify">Com o método utilizado a maior potência obtida foi 42.81.</p>
+
+## Exercício E
+RedBullTeDaAsas
